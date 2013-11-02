@@ -10,17 +10,20 @@ class BaseHandler(tornado.web.RequestHandler):
     def initialize(self, db_config):
         self.db_config = db_config
 
+    def error(self, errorcode):
+        logging.info("error: " + errorcode)
+        self.clear()
+        self.finish('{"error": 1}')
+
 
     def bad_request(self):
+        logging.info("bad request")
         self.clear()
         self.set_status(400)
         self.finish()
-        return
 
     def db_error(self):
-        self.clear()
-        self.finish('{"error": 1}')
-        return
+        self.error(1)
 
     def get(self):
         self.bad_request()
@@ -33,8 +36,9 @@ class BaseHandler(tornado.web.RequestHandler):
         except ValueError:
             logging.info("Bad request: " + self.request.body[:50])
         for field in self.reqd_fields:
-            if not hasattr(request, field):
+            if field not in request:
                 self.bad_request()
+                return
 
         dbc = self.db_config
         try:
@@ -43,8 +47,10 @@ class BaseHandler(tornado.web.RequestHandler):
                                user=dbc['username'],
                                passwd=dbc['password'],
                                db=dbc['database'])
-        except MySQLDB.Error as e:
-            logging.critical("MySQL connxn error: " + e[1])
+        except MySQLdb.Error as e:
+            logging.error("MySQL connxn error: " + e[1])
             self.db_error()
+            return
 
         self.process(request, conn)
+        self.finish()
