@@ -1,0 +1,55 @@
+<html>
+<head>
+  <style type="text/css">
+  #response {margin-left: 2em; border-left: solid 2px black; padding-left: 10px;}
+  </style>
+  <script type="text/javascript" src="jquery.min.js"></script>
+  <script type="text/javascript">
+
+  function send() {
+    var url = "http://10.20.11.49/" + $("#url").val();
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: $("#json").val(),
+      success: function(response) {
+        $("#response").html(JSON.stringify(response));
+      },
+      error: function() {
+        $("#response").html("Error");
+      },
+      dataType: "json"
+    });
+  }
+
+  $(function() {
+    $( "#presets" ).change(function() {
+      if ($("#presets").val() == "Join") {
+        $("#url").val("join");
+        var request = new Object();
+        request.username = "john";
+        request.password = "greatpassword";
+        request.topic = "hotdog salad";
+        request.oneonone = "N";
+        $("#json").val(JSON.stringify(request));
+      }
+    });
+  });
+
+  </script>
+</head>
+<body>
+<div>Presets: <select id="presets"><option value=""></option><option value="Join" />Join</option></select></div>
+
+<br /><br />
+<div>URL Relative to <b>http://10.20.11.49/</b>&nbsp;&nbsp;:<input type="text" id="url" value="join" /></div>
+<br />
+<div><textarea id="json" cols="80" rows="6"></textarea></div>
+<br />
+<div><input type="button" value="Send" onclick="javascript:send();" /></div>
+<br /><br />
+<div>Response:</div>
+<div id="response"></div>
+</body>
+</html>

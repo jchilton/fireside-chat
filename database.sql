@@ -1,7 +1,7 @@
-CREATE TABLE `fireside-chat`.`new_table` (
+CREATE TABLE `fireside-chat`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password_hash` VARCHAR(45) NOT NULL,
+  `password_hash` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`user_id`));
 
 
