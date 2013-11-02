@@ -3,16 +3,7 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/camp_bg">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:text="FireSide Chat App"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:layout_marginLeft="-1dp" />
+    >
 
 
     <ImageView
@@ -20,52 +11,58 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:layout_gravity="center"
+        android:minHeight="150dp"
+        android:minWidth="150dp"
         android:background="@drawable/go" />
 
     <RelativeLayout
         android:layout_width="301dp"
-        android:layout_height="323dp"
+        android:layout_height="286dp"
         android:layout_gravity="center"
         >
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
             android:id="@+id/username_field"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"
-            android:text="Username" />
+            android:hint="Username"
+        />
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
             android:id="@+id/tag_field"
-            android:text="Tags"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="40dp"
             android:layout_below="@+id/username_field"
-            android:layout_alignLeft="@+id/username_field" />
+            android:layout_alignLeft="@+id/username_field"
+            android:hint="Enter your tags here"
+        />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chat_init_button"
-            android:layout_alignParentBottom="true"
-            android:layout_alignRight="@+id/username_field"
-            android:layout_marginBottom="11dp"
-            android:layout_alignLeft="@+id/tag_field"
             android:src="#ff9034"
             android:textAlignment="center"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:layout_below="@+id/tag_field"
+            android:layout_alignLeft="@+id/tag_field"
+            android:layout_marginTop="80dp"
+            android:layout_alignRight="@+id/tag_field" />
 
     </RelativeLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:text="New Text"
-        android:id="@+id/textView2"
-        android:layout_gravity="center"
-        android:layout_marginBottom="17dp"
-        android:layout_weight="1" />
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Created by the FireSide Team @AngelHackSEA 2013"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:layout_gravity="center" />
+
 </LinearLayout>
