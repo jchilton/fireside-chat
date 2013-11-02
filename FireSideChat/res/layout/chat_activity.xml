@@ -4,18 +4,90 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_gravity="left|center_vertical"
-        android:background="@drawable/go"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chat_icon"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/go" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Welcome to your Chat"
+                android:id="@+id/textView"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:textAppearance="?android:attr/textAppearance"
+                android:text="Tags Here"
+                android:id="@+id/chat_tags"
+                android:layout_gravity="left|center_vertical" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_gravity="center" />
+        android:layout_gravity="center">
+
+        <ListView
+            android:layout_width="117dp"
+            android:layout_height="194dp"
+            android:id="@+id/user_list_view"
+            android:layout_gravity="center_horizontal|top"
+            android:choiceMode="none" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="320dp"
+            android:id="@+id/chat_scroll_view"
+            android:layout_gravity="center_horizontal|top"
+            android:fillViewport="false" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:id="@+id/message_send_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/message_text_field"
+            android:layout_alignBottom="@+id/message_send_button"
+            android:layout_toLeftOf="@+id/message_send_button"
+            android:layout_marginRight="12dp"
+            android:hint="Enter message here..."/>
+    </RelativeLayout>
 
 </LinearLayout>
