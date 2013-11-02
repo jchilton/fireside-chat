@@ -1,38 +1,28 @@
-import json
 import logging
+import sys
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 
-import MySQLdb
+import handlers.join
 
-class BaseHandler(tornado.web.RequestHandler):
-    def bad_request(self):
-        self.clear()
-        self.set_status(400)
-        self.finish()
-        return
+db_config = {}
+try:
+    database_config_file = open('db_config')
+    db_config['host'] = database_config_file.readline()[:-1]
+    db_config['port'] = database_config_file.readline()[:-1]
+    db_config['username'] = database_config_file.readline()[:-1]
+    db_config['password'] = database_config_file.readline()[:-1]
+except IOError, e:
+    logging.critical("Error reading db config: " + e)
+    sys.exit(1)
 
-    def get(self):
-        self.bad_request()
+application = tornado.web.Application([
+    (r'/join', handlers.join.JoinHandler, dict(db_config=db_config))
+])
 
-    # Parse the request for all required fields and get a database connection
-    # Then hand these off to the worker function
-    def post(self):
-        try:
-            request = json.loads(self.request.body)
-        except ValueError:
-            logging.info("Bad request: " + self.request.body[:50])
-        for field in self.reqd_fields:
-            if not hasattr(request, field):
-                self.bad_request()
-        
-
-
-        self.process(request)
-
-
-
-
-class JoinHandler(tornado.web.RequestHandler):
-    def process(self, request):
+if __name__ == '__main__':
+    http_server = tornado.httpserver.HTTPServer(application)
+    http_server.listen(80)
+    tornado.ioloop.IOLoop.instance().start()
