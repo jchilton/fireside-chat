@@ -18,22 +18,38 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	EditText response;
+	EditText responseField;
+	TextView isConnectedField;
 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		isConnectedField = (EditText) findViewById(R.id.username_field);
+		responseField = (EditText) findViewById(R.id.tag_field);
+
+		if(isConnected()) {
+			isConnectedField.setText("Connected");
+			Log.d("Network Connectivity", "Connected");
+		} else {
+			isConnectedField.setText("NOT Connected");
+			Log.d("Network Connectivity", "NOT Connected");
+		}
+		
+		new HttpAsyncTask().execute("http://hmkcode.appspot.com/rest/controller/get.json");
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
+		
 		return true;
 	}
 
@@ -81,7 +97,7 @@ public class MainActivity extends Activity {
 		
 		protected void onPostExecute(String result) {
 			Toast.makeText(getBaseContext(), "Recieved!", Toast.LENGTH_LONG).show();	
-			response.setText(result);
+			responseField.setText(result);
 		}
 	}
 }
