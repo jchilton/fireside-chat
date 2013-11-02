@@ -41,6 +41,7 @@
             android:hint="Enter your tags here"
         />
 
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,11 +49,10 @@
             android:src="#ff9034"
             android:textAlignment="center"
             android:visibility="visible"
+            android:layout_marginTop="40dp"
             android:layout_below="@+id/tag_field"
             android:layout_alignLeft="@+id/tag_field"
-            android:layout_marginTop="80dp"
             android:layout_alignRight="@+id/tag_field" />
-
     </RelativeLayout>
 
     <TextView
