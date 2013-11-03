@@ -11,5 +11,6 @@ public class chat_activity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
 
+        //http://stackoverflow.com/questions/6369062/how-do-i-add-elements-dynamically-to-a-view-created-with-xml
     }
 }
