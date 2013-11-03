@@ -50,19 +50,20 @@
             android:maxLines="1" />
 
         <Button
+            android:id="@+id/chat_init_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/chat_init_button"
-            android:src="#ff9034"
-            android:textAlignment="center"
-            android:visibility="visible"
-            android:background="@drawable/buttonshape"
-            android:text="Lets Chat"
-            android:layout_below="@+id/tag_field"
             android:layout_alignLeft="@+id/tag_field"
             android:layout_alignRight="@+id/tag_field"
+            android:layout_below="@+id/tag_field"
             android:layout_marginTop="15dp"
-            android:textColor="#ffffff" />
+            android:background="@drawable/buttonshape"
+            android:src="#ff9034"
+            android:text="Let&apos;s Chat!"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:visibility="visible" />
+
     </RelativeLayout>
 
     <TextView
