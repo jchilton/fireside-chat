@@ -132,7 +132,9 @@ public class MainActivity extends Activity implements HasHttpPostCallback {
 
 	public void switchToChat(Integer topicId) {
 		Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-		intent.putExtra("topicID", topicId);
+		intent.putExtra("topicID", ((AutoCompleteTextView) findViewById(R.id.tag_field)).getText().toString());
+		intent.putExtra("username", ((TextView) findViewById(R.id.username_field)).getText().toString());
+		intent.putExtra("password", ((TextView) findViewById(R.id.password_field)).getText().toString());
 		startActivity(intent);
 	}
 

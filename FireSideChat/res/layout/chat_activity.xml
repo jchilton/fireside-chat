@@ -22,22 +22,23 @@
             android:layout_height="fill_parent">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Welcome to your Chat"
-                android:id="@+id/textView"
                 android:layout_gravity="center"
+                android:text="Welcome to your Chat"
                 android:textAlignment="center"
-                android:textSize="25dp" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="22sp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:textAppearance="?android:attr/textAppearance"
-                android:text="Tags Here"
                 android:id="@+id/chat_tags"
-                android:layout_gravity="left|center_vertical" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="left|center_vertical"
+                android:text="Tags Here"
+                android:textAppearance="?android:attr/textAppearance"
+                android:visibility="visible" />
 
         </LinearLayout>
 

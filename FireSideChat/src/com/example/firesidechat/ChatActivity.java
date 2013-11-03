@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,17 @@ public class ChatActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
+        
+        //get intent from previous activity
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+        String tags = intent.getStringExtra("topicID");
 
+        TextView tag = (TextView) findViewById(R.id.chat_tags);
+        tag.setText("Topic: " +tags);
+        
+        
         final TextView msg_data = (TextView) findViewById(R.id.message_text_field);
         Button msg_btn = (Button) findViewById(R.id.message_send_button);
         msg_btn.setOnClickListener(new View.OnClickListener() {
