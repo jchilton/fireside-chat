@@ -175,4 +175,9 @@ public class MainActivity extends Activity {
 			// fail silently here
 		}
 	}
+
+	public void locationHandler(String latitude, String longitude) {
+		// TODO Auto-generated method stub
+		
+	}
 }
