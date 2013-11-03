@@ -66,7 +66,7 @@ Possible return values:
     UserCreated
     InvalidPassword
 '''
-def authenticate(username, password, dbconn):
+def authenticate(username, password, dbconn, creatable=True):
     try:
         cursor = dbconn.cursor()
     except MySQLdb.Error as e:
@@ -83,6 +83,8 @@ def authenticate(username, password, dbconn):
             else:
                 return Status.UnsuccessfulAuthentication
         else:
+            if not creatable:
+                return Status.UserDoesNotExist
             if new_user_username_check(username):
                 if new_user_password_check(password):
                     result = create_user(username, password_hash, cursor)

@@ -80,6 +80,7 @@ def add_user(username, topic_id, dbconn):
     except MySQLdb.Error as e:
         logging.error("MySQL error in add_user 1: " + e[1])
         return Status.DBError
+
     if type(user_id) == Status.NoSuchUser:
         return user_id
     findSQL = "SELECT * FROM topic_users WHERE user_id='%s' AND topic_id='%s'" % (user_id, topic_id)
@@ -115,3 +116,28 @@ def add_user(username, topic_id, dbconn):
 
     logging.info('User added to topic')
     return Status.UserAddedToTopic
+
+def user_in_topic(username, topic_id, dbconn):
+    try:
+        cursor = dbconn.cursor()
+        user_id = user.user_id_from_username(username, dbconn)
+    except MySQLdb.Error as e:
+        logging.error("MySQL error in add_user 1: " + e[1])
+        return Status.DBError
+
+    findSQL = "SELECT user_id FROM topic_users WHERE user_id='%s' AND topic_id='%s'" % (user_id, topic_id)
+
+    try:
+        result = cursor.execute(findSQL)
+    except MySQLdb.Error as e:
+        logging.error("MySQL error in user_in_topic: " + e[1])
+        return Status.DBError
+
+    if result > 0:
+        if result > 1:
+            logging.warn('There is a duplicate record for a "topic_user"')
+        return Status.UserAlreadyInTopic
+    else:
+        return Status.UserNotInTopic
+
+

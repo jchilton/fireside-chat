@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.firesidechat.web.HasHttpPostCallback;
 import com.example.firesidechat.web.HttpPostTask;
 import com.example.firesidechat.web.LoginRequestTask;
 import com.example.firesidechat.web.SearchTopicRequestTask;
@@ -28,7 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements HasHttpPostCallback {
 
 	private void showMessage(String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -173,6 +174,16 @@ public class MainActivity extends Activity {
 		}
 		catch (Exception e) {
 			// fail silently here
+		}
+	}
+
+	@Override
+	public void onPostReturn(String URL, String response) {
+		if (URL.equals(Server.JOIN_URL)) {
+			loginRequestCompleted(response);
+		}
+		else if (URL.equals(Server.SEARCH_URL)) {
+			searchRequestCompleted(response);
 		}
 	}
 }

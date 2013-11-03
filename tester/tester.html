@@ -40,16 +40,38 @@
         request.prefix = 'hot';
         $("#json").val(JSON.stringify(request));
       }
+      else if($("#presets").val() == "Get Messages") {
+        $("#url").val("get_messages");
+        var request = new Object();
+        request.username = 'john';
+        request.password = 'greatpassword';
+        request.topic_id = 4;
+        request.timestamp = '2013-10-10 10:10:10';
+        $("#json").val(JSON.stringify(request));
+      }
+      else if($("#presets").val() == "Post Message") {
+        $("#url").val("post_message");
+        var request = new Object();
+        request.username = 'john';
+        request.password = 'greatpassword';
+        request.topic_id = 4;
+        request.message = 'hello world';
+        $("#json").val(JSON.stringify(request));
+      }
     });
   });
 
   </script>
 </head>
 <body>
-<div>Presets: <select id="presets">
+  <h1>This only works in Safari*</h1>
+  <p>What you are looking at is a quick-'n'-dirty way to "test" our Tornado server's RESTful JSON-over-HTTP web service.</p>
+<div>Message presets: <select id="presets">
                 <option value=""></option>
                 <option value="Join" />Join</option>
                 <option value="Search" />Search</option>
+                <option value="Get Messages" />Get Messages</option>
+                <option value="Post Message" />Post Message</option>
               </select></div>
 
 <br /><br />
@@ -61,5 +83,8 @@
 <br /><br />
 <div>Response:</div>
 <div id="response"></div>
+<br /><br /><br />
+<hr />
+<p>*If you <span style="font-family: monospace; font-weight: bold;">curl</span> some JSON to our server, you get a good, valid JSON response. Firefox and Chrome seem to be doing something "fancy" and "smart" with the AJAX requests this page makes, and they do not recognize successful AJAX responses.</p>
 </body>
 </html>

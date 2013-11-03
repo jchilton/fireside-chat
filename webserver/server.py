@@ -1,5 +1,6 @@
 import logging
 import sys
+import os
 
 import tornado.httpserver
 import tornado.ioloop
@@ -7,6 +8,8 @@ import tornado.web
 
 import handlers.join
 import handlers.search_topics
+import handlers.get_messages
+import handlers.post_message
 
 
 db_config = {}
@@ -24,11 +27,16 @@ except ValueError:
     logging.critical("Need numeric port")
     sys.exit(1)
 
+db_config_dict = dict(db_config=db_config)
 application = tornado.web.Application([
-    (r'/join', handlers.join.JoinHandler, dict(db_config=db_config)),
-    (r'/search_topics', handlers.search_topics.SearchTopicsHandler, dict(db_config=db_config))
+    (r'/join', handlers.join.JoinHandler, db_config_dict),
+    (r'/search_topics', handlers.search_topics.SearchTopicsHandler, db_config_dict),
+    (r'/get_messages', handlers.get_messages.GetMessagesHandler, db_config_dict),
+    (r'/post_message', handlers.post_message.PostMessageHandler, db_config_dict),
+    (r'/tester/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tester")})
 ])
 
+print os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tester")
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
 
