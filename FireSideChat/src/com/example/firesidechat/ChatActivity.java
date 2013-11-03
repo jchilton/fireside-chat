@@ -10,16 +10,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.firesidechat.web.HasHttpPostCallback;
+import com.example.firesidechat.web.HttpPostTask;
+import com.example.firesidechat.web.SubmitMessageRequestTask;
 //import com.example.firesidechat.web.SearchMessagesRequestTask;
 import com.example.firesidechat.web.Server;
 
@@ -41,9 +47,10 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
         
+      
         
 		//sets keyboard to start hidden until soft input selected
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         
         //get intent from previous activity
         Intent intent = getIntent();
@@ -68,7 +75,9 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
             @Override
             public void onClick(View view) {
                 //http://stackoverflow.com/questions/6369062/how-do-i-add-elements-dynamically-to-a-view-created-with-xml
-
+            	//on click send HTTPPostTask
+            	submitMessage(msg_data.getText().toString());
+            	msg_data.setText("");
 
             }
         });
@@ -79,6 +88,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     	//will post message
     	//timesteamp
     	//then call pull message with boolean overRideTimer=True
+    	
     }
 
     
@@ -111,5 +121,22 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 			e.printStackTrace();
 		}
 	}
+	
+	public void submitMessage(String msg_data) {
+    	String[] sa = new String[2];
+    	sa[0] = Server.SUBMIT_URL; 
+    	HashMap<String, String> submitVals = new HashMap<String, String>();
+    	submitVals.put("username", username);
+    	submitVals.put("password", password);
+    	submitVals.put("topic_id", Integer.toString(topicId));
+    	submitVals.put("message", msg_data);
+    	sa[1] = new JSONObject(submitVals).toString();
+    	
+    	new SubmitMessageRequestTask(ca).execute(sa);
+    
+    	
+	}
+	
+	
 
 }

@@ -49,7 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:focusableInTouchMode="true">
+        >
 
         <ScrollView
             android:id="@+id/chat_scroll_view"
