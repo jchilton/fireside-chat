@@ -41,6 +41,8 @@ public class MainActivity extends Activity {
         		new LoginRequestTask(m).execute(Server.JOIN_URL, new JSONObject(params).toString());
             }
         });
+        
+        
 	}
 
 	@Override
