@@ -9,6 +9,7 @@ import java.util.TimerTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.example.firesidechat.web.HasHttpPostCallback;
@@ -144,6 +146,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     
 	}
 	
+
 	public void displayUpdate(String[][] data) { 
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View v = inflater.inflate(R.layout.chat_activity, null);
@@ -157,23 +160,15 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 	    ll.setPadding(15, 15, 15, 15);
 
 	    // Add text
-	    TextView name1 = new TextView(this);
-	    name1.setText("User");
-	    ll.addView(name1);
+	    TextView name_msg1 = new TextView(this);
+	    name_msg1.setText("User: " + "MESSAAAAAAAAAAAAAAAGE!");
+	    ll.addView(name_msg1);
 	    
-	    TextView msg1 = new TextView(this);
-	    msg1.setText("msg1");
-	    ll.addView(msg1);
+	    TextView ts = new TextView(this);
+	    ts.setText("@noon-thirty");
+	    ll.addView(ts);
 	    
-	    TextView name2 = new TextView(this);
-	    name2.setText("User2");
-	    ll.addView(name2);
-	    
-	    TextView msg2 = new TextView(this);
-	    msg2.setText("msg2");
-	    ll.addView(msg2);
-	    
-
+	   
 	    // Add the LinearLayout element to the ScrollView
 	    sv.addView(ll);
 
