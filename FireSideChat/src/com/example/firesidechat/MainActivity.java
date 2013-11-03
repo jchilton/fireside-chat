@@ -26,17 +26,19 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-	EditText response;
 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Server.login("Alice", "doge", "lolcats");
+		
         ImageButton init_chat = (ImageButton) findViewById(R.id.chat_init_button);
         init_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(MainActivity.this, chat_activity.class);
                 startActivity(intent);
             }
