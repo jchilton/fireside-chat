@@ -48,6 +48,8 @@ class BaseHandler(tornado.web.RequestHandler):
             request = json.loads(self.request.body)
         except ValueError:
             logging.info("Bad request: " + self.request.body[:50])
+            self.bad_request()
+            return
         for field in self.reqd_fields:
             if field not in request:
                 self.bad_request()

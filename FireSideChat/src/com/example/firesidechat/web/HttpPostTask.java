@@ -13,15 +13,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.example.firesidechat.MainActivity;
-
 import android.os.AsyncTask;
 
 public abstract class HttpPostTask extends AsyncTask<String, Void, String> {
 
-	protected MainActivity callbackParent;
+	protected HasHttpPostCallback callbackParent;
 	
-	public HttpPostTask(MainActivity a) {
+	public HttpPostTask(HasHttpPostCallback a) {
 		this.callbackParent = a;
 	}
 

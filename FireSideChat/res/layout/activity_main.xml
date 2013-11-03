@@ -1,13 +1,10 @@
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-
-    >
+    android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/logo_view"
         android:layout_width="115dp"
         android:layout_height="115dp"
         android:layout_gravity="center"
@@ -69,13 +66,14 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:paddingTop="10dp"
         android:text="Created by the FireSide Team @AngelHackSEA 2013"
         android:textAlignment="center"
-        android:id="@+id/textView"
-        android:layout_gravity="center" />
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>

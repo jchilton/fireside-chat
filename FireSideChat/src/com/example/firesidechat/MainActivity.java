@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.firesidechat.web.HasHttpPostCallback;
 import com.example.firesidechat.web.HttpPostTask;
 import com.example.firesidechat.web.LoginRequestTask;
 import com.example.firesidechat.web.SearchTopicRequestTask;
@@ -26,9 +27,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements HasHttpPostCallback {
 
 	private void showMessage(String message) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -40,6 +42,9 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		ImageView img = (ImageView) findViewById(R.id.logo_view);
+		
 
 		Button init_chat = (Button) findViewById(R.id.chat_init_button);
 		final MainActivity m = this;
@@ -131,7 +136,10 @@ public class MainActivity extends Activity {
 
 	public void switchToChat(Integer topicId) {
 		Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-		intent.putExtra("topicID", topicId);
+		intent.putExtra("topicName", ((AutoCompleteTextView) findViewById(R.id.tag_field)).getText().toString());
+		intent.putExtra("username", ((TextView) findViewById(R.id.username_field)).getText().toString());
+		intent.putExtra("password", ((TextView) findViewById(R.id.password_field)).getText().toString());
+		intent.putExtra("topicId", topicId);
 		startActivity(intent);
 	}
 
@@ -176,6 +184,19 @@ public class MainActivity extends Activity {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	@Override
+	public void onPostReturn(String URL, String response) {
+		if (URL.equals(Server.JOIN_URL)) {
+			loginRequestCompleted(response);
+		}
+		else if (URL.equals(Server.SEARCH_URL)) {
+			searchRequestCompleted(response);
+		}
+	}
+
+>>>>>>> branch 'master' of https://github.com/jchilton1/fireside-chat.git
 	public void locationHandler(String latitude, String longitude) {
 		// TODO Auto-generated method stub
 		
