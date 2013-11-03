@@ -61,7 +61,8 @@
             android:clickable="true"
             android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:layout_height="350dp">
+            android:layout_height="350dp"
+            android:background="@drawable/bg_layout">
         </ScrollView>
 
     </LinearLayout>
@@ -77,7 +78,12 @@
             android:text="Send"
             android:id="@+id/message_send_button"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:clickable="false"
+            android:background="@drawable/buttonshape"
+            android:onClick="sendMessage"
+        />
 
         <EditText
             android:layout_width="wrap_content"

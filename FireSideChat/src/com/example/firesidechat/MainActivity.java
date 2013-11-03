@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Server.login("Alice", "doge", "lolcats");
 		
-        ImageButton init_chat = (ImageButton) findViewById(R.id.chat_init_button);
+        Button init_chat = (Button) findViewById(R.id.chat_init_button);
         init_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
