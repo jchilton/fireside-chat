@@ -58,11 +58,11 @@
 
         <ScrollView
             android:id="@+id/chat_scroll_view"
-            android:clickable="true"
-            android:layout_weight="1"
             android:layout_width="fill_parent"
-            android:layout_height="350dp"
-            android:background="@drawable/bg_layout">
+            android:layout_height="240dp"
+            android:background="@drawable/bg_layout"
+            android:clickable="true" >
+
         </ScrollView>
 
     </LinearLayout>
