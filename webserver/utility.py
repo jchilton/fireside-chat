@@ -7,6 +7,7 @@ class Status(object):
     UnsuccessfulAuthentication = 3
     UserCreated = 4
     InvalidPassword = 5
+    InvalidUsername = 12
     NoSuchUser = 6
     class NoSuchUser(object):
         pass

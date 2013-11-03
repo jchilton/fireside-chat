@@ -1,5 +1,5 @@
 
-import utility
+from utility import Status
 import logging
 import MySQLdb
 import bcrypt
@@ -35,9 +35,25 @@ def password_matches(username, password, cursor):
     db_hash = cursor.fetchone()[0]
     return bcrypt.hashpw(password, db_hash) == db_hash
 
+'''
+Returns True if the username is at least 3 characters
+False otherwise
+'''
+def new_user_username_check(username):
+    return len(username.strip()) >= 3
+
+'''
+Returns one of:
+    Status.InvalidUsername
+    Status.UserCreated
+    Status.CouldNotCreateUser
+'''
 def create_user(username, password_hash, cursor):
     createUserSQL = "INSERT INTO users (username, password_hash) VALUES ('%s', '%s')" % (username, password_hash)
-    return cursor.execute(createUserSQL)
+    if cursor.execute(createUserSQL):
+        return Status.UserCreated
+    else:
+        return Status.CouldNotCreateUser
 
 '''
 Tries to authenticate a user with the given username and password, and if the username does not exist, will create
@@ -55,7 +71,7 @@ def authenticate(username, password, dbconn):
         cursor = dbconn.cursor()
     except MySQLdb.Error as e:
         logging.error('error getting cursor: authenticate: ' + e[1])
-        return utility.Status.MySQLError
+        return Status.MySQLError
 
     password_hash = bcrypt.hashpw(password, bcrypt.gensalt())
     username = MySQLdb.escape_string(username)
@@ -63,24 +79,27 @@ def authenticate(username, password, dbconn):
     try:
         if user_exists(username, cursor):
             if password_matches(username, password, cursor):
-                return utility.Status.SuccessfulAuthentication
+                return Status.SuccessfulAuthentication
             else:
-                return utility.Status.UnsuccessfulAuthentication
+                return Status.UnsuccessfulAuthentication
         else:
-            if new_user_password_check(password):
-                create_user(username, password_hash, cursor)
-                dbconn.commit()
-                return utility.Status.UserCreated
+            if new_user_username_check(username):
+                if new_user_password_check(password):
+                    result = create_user(username, password_hash, cursor)
+                    dbconn.commit()
+                    return result
+                else:
+                    return Status.InvalidPassword
             else:
-                return utility.Status.InvalidPassword
+                return Status.InvalidUsername
 
     except MySQLdb.Error as e:
         logging.error("Mysql error in authenticate: " + e[1])
-        return utility.Status.MySQLError
+        return Status.MySQLError
 
 
 '''
-Returns a utility.Status.NoSuchUser object if there is no such user, or returns a the user id if
+Returns a Status.NoSuchUser object if there is no such user, or returns a the user id if
 there is a user with the given username. This function does raise MySQL errors, so catch them.
 '''
 def user_id_from_username(username, dbconn):
@@ -88,5 +107,5 @@ def user_id_from_username(username, dbconn):
     cursor = dbconn.cursor()
     idSQL = "SELECT user_id FROM users WHERE username='%s'" % username
     if cursor.execute(idSQL) == 0:
-        return utility.Status.NoSuchUser()
+        return Status.NoSuchUser()
     return cursor.fetchone()[0]

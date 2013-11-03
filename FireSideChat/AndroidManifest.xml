@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.firesidechat.chat_activity"
+            android:name="com.example.firesidechat.ChatActivity"
             android:label="FireSide Chat" />
     </application>
 

@@ -1,7 +1,6 @@
 
 import base
 import logging
-import json
 import models.user
 import models.topic
 
