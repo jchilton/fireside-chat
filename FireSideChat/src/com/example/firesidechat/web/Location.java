@@ -7,23 +7,27 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.firesidechat.MainActivity;
+
 public class Location implements LocationListener {
 	
+	private MainActivity parent;
 	private Context context;
 	private LocationManager locationManager;
 	private String provider;
 	private String latitude;
 	private String longitude;
 
-	public Location(Context applicationContext) {
+	public Location(MainActivity parent_activity, Context applicationContext) {
+		parent = parent_activity;
 		context = applicationContext;
 		locate();
 	}
 
 	public void locate() {
 		// Get the location manager
-	    locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
-	    // Define the criteria how to select the locatioin provider -> use
+	    locationManager = (LocationManager) context.getSystemService(parent.getApplicationContext().LOCATION_SERVICE);
+	    // Define the criteria how to select the location provider -> use
 	    // default
 	    Criteria criteria = new Criteria();
 	    provider = locationManager.getBestProvider(criteria, false);
@@ -45,6 +49,7 @@ public class Location implements LocationListener {
 	    latitude = String.valueOf(lat);
 	    longitude = String.valueOf(lng);
 	    Log.d("Location", latitude+", "+longitude);
+	    parent.locationHandler(latitude, longitude);
 	}
 
 	@Override
