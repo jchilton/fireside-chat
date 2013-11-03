@@ -11,15 +11,25 @@ class BaseHandler(tornado.web.RequestHandler):
         self.db_config = db_config
 
     def error(self, errorcode):
-        logging.info("error: " + errorcode)
+        logging.info("error: " + str(errorcode))
         self.clear()
-        self.finish('{"error": 1}')
+        self.set_header("Content-Type", "application/json")
+        self.write('{"error": %s}' % str(errorcode))
+        self.finish()
 
 
     def bad_request(self):
         logging.info("bad request")
         self.clear()
         self.set_status(400)
+        self.finish()
+
+    def success(self, statuscode):
+        logging.info("success")
+        self.clear()
+        self.set_status(200)
+        self.set_header("Content-Type", "application/json")
+        self.write('{"success": %s}' % int(statuscode))
         self.finish()
 
     def db_error(self):
@@ -33,6 +43,8 @@ class BaseHandler(tornado.web.RequestHandler):
     def post(self):
         try:
             request = json.loads(self.request.body)
+            print self.request.body
+            print request
         except ValueError:
             logging.info("Bad request: " + self.request.body[:50])
         for field in self.reqd_fields:
@@ -53,4 +65,3 @@ class BaseHandler(tornado.web.RequestHandler):
             return
 
         self.process(request, conn)
-        self.finish()

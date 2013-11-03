@@ -23,7 +23,7 @@ def user_exists(username, cursor):
     return cursor.execute(userExistsSQL)
 
 '''
-Returns the number of rows with the given username and password hash (should be 1 or 0)
+Returns True if the password matches for the given user, otherwise False
 
 Will throw a MySQLdb.Error if something goes wrong; the caller must catch
 '''
@@ -53,7 +53,8 @@ Possible return values:
 def authenticate(username, password, dbconn):
     try:
         cursor = dbconn.cursor()
-    except MySQLdb.Error:
+    except MySQLdb.Error as e:
+        logging.error('error getting cursor: authenticate: ' + e[1])
         return utility.Status.MySQLError
 
     password_hash = bcrypt.hashpw(password, bcrypt.gensalt())
@@ -61,7 +62,6 @@ def authenticate(username, password, dbconn):
 
     try:
         if user_exists(username, cursor):
-            logging.info("loggin' in %s with %s (hashed %s)" % (username, password, password_hash))
             if password_matches(username, password, cursor):
                 return utility.Status.SuccessfulAuthentication
             else:
@@ -79,3 +79,14 @@ def authenticate(username, password, dbconn):
         return utility.Status.MySQLError
 
 
+'''
+Returns a utility.Status.NoSuchUser object if there is no such user, or returns a the user id if
+there is a user with the given username. This function does raise MySQL errors, so catch them.
+'''
+def user_id_from_username(username, dbconn):
+    username = MySQLdb.escape_string(username)
+    cursor = dbconn.cursor()
+    idSQL = "SELECT user_id FROM users WHERE username='%s'" % username
+    if cursor.execute(idSQL) == 0:
+        return utility.Status.NoSuchUser()
+    return cursor.fetchone()[0]

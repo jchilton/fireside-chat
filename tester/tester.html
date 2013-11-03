@@ -7,19 +7,19 @@
   <script type="text/javascript">
 
   function send() {
-    var url = "http://10.20.11.49/" + $("#url").val();
-
+    var posturl = "http://10.20.11.49/" + $("#url").val();
     $.ajax({
       type: "POST",
-      url: url,
+      url: posturl,
       data: $("#json").val(),
+      processData: false,
       success: function(response) {
         $("#response").html(JSON.stringify(response));
       },
-      error: function() {
-        $("#response").html("Error");
-      },
-      dataType: "json"
+      error: function(xhr, textstatus, errorthrown) {
+        $("#response").html("Error: " + textstatus + " " + errorthrown);
+        a = xhr;
+      }
     });
   }
 

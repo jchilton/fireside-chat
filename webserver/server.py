@@ -28,7 +28,7 @@ application = tornado.web.Application([
 ])
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
 
     http_server = tornado.httpserver.HTTPServer(application)
     try:
