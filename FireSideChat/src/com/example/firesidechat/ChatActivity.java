@@ -27,6 +27,7 @@ import com.example.firesidechat.web.HasHttpPostCallback;
 import com.example.firesidechat.web.SearchMessagesRequestTask;
 import com.example.firesidechat.web.Server;
 //import com.example.firesidechat.web.SearchMessagesRequestTask;
+import com.example.firesidechat.web.SubmitMessageRequestTask;
 
 /**
  * Created by timlarson on 11/2/13.
@@ -81,8 +82,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
             	//on click send HTTPPostTask
             	submitMessage(msg_data.getText().toString());
             	
-            	String[][] testd = new String[2][3];
-            	displayUpdate(testd);
+            	displayUpdate();
             	
             	msg_data.setText("");
             	
@@ -120,6 +120,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     	String time = new Timestamp(System.currentTimeMillis()).toString();
         lastTimeStamp = time.substring(0, time.lastIndexOf('.'));
         
+        
         for(Message m : messages.getMessages()) {
         	Log.d("Messages", m.toString()+" ");
         }
@@ -146,8 +147,9 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 	public void onPostReturn(String URL, String response) {
 		if (URL.equals(Server.MESSAGES_URL)) {
 			addMessages(response);
+			displayUpdate();
 		}
-		else if (URL.equals("")) {
+		else if (URL.equals(Server.SUBMIT_URL)) {
 			
 		}
 	}
@@ -162,39 +164,39 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     	submitVals.put("message", msg_data);
     	sa[1] = new JSONObject(submitVals).toString();
     	
-    	//new SubmitMessageRequestTask(ca).execute(sa);
+    	new SubmitMessageRequestTask(this).execute(sa);
     
 	}
 	
-	@SuppressLint("NewApi")
-	public void displayUpdate(Messages msgs) { 
-		
-		
-		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	    View v = inflater.inflate(R.layout.chat_activity, null);
+	public void displayUpdate() { 
+		for (Message msg: messages.getMessages()) { 
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		    View v = inflater.inflate(R.layout.chat_activity, null);
 
-	    // Find the ScrollView 
-	    ScrollView sv = (ScrollView) v.findViewById(R.id.chat_scroll_view);
+		    // Find the ScrollView 
+		    ScrollView sv = (ScrollView) v.findViewById(R.id.chat_scroll_view);
 
-	    // Create a LinearLayout element
-	    LinearLayout ll = new LinearLayout(this);
-	    ll.setOrientation(LinearLayout.VERTICAL);
-	    ll.setPadding(15, 15, 15, 15);
+		    // Create a LinearLayout element
+		    LinearLayout ll = new LinearLayout(this);
+		    ll.setOrientation(LinearLayout.VERTICAL);
+		    ll.setPadding(15, 15, 15, 15);
 
-	    // Add text
-	    TextView name_msg1 = new TextView(this);
-	    name_msg1.setText("User: " + "MESSAAAAAAAAAAAAAAAGE!");
-	    ll.addView(name_msg1);
-	    
-	    TextView ts = new TextView(this);
-	    ts.setText("@noon-thirty");
-	    ll.addView(ts);
-	    
-	   
-	    // Add the LinearLayout element to the ScrollView
-	    sv.addView(ll);
+		    // Add text
+		    TextView name_msg1 = new TextView(this);
+		    name_msg1.setText(msg.getUsername() + ":  "+ msg.getMessage());
+		    ll.addView(name_msg1);
+		    
+		    TextView ts = new TextView(this);
+		    ts.setText(msg.getTimestamp().toString());
+		    ll.addView(ts);
+		    
+		   
+		    // Add the LinearLayout element to the ScrollView
+		    sv.addView(ll);
 
-	    // Display the view
-	    setContentView(v);
+		    // Display the view
+		    setContentView(v);
+		}
+
 	}
 }
