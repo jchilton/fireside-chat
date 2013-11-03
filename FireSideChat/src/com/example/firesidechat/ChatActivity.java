@@ -20,7 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.firesidechat.web.HasHttpPostCallback;
-import com.example.firesidechat.web.SearchMessagesRequestTask;
+//import com.example.firesidechat.web.SearchMessagesRequestTask;
 import com.example.firesidechat.web.Server;
 
 /**
@@ -95,7 +95,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
         }
         String time = new Timestamp(System.currentTimeMillis()).toString();
         lastTimeStamp = time.substring(0, time.lastIndexOf('.'));
-		new SearchMessagesRequestTask(ca).execute(Server.MESSAGES_URL, new JSONObject(requestVals).toString());
+//		new SearchMessagesRequestTask(ca).execute(Server.MESSAGES_URL, new JSONObject(requestVals).toString());
 	}
 
 	@Override
