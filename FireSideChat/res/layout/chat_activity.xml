@@ -57,44 +57,11 @@
             android:choiceMode="none" />
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="320dp"
             android:id="@+id/chat_scroll_view"
-            android:layout_gravity="center_horizontal|top"
-            android:fillViewport="false" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView"
-                    android:minHeight="30dp"
-                    android:minWidth="30dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Username: "
-                    android:id="@+id/user_name_1"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/imageView"
-                    android:layout_marginLeft="12dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:id="@+id/textView2"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/user_name_1"
-                    android:maxWidth="160dp"
-
-                />
-            </RelativeLayout>
+            android:clickable="true"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="350dp">
         </ScrollView>
 
     </LinearLayout>
