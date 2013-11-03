@@ -45,6 +45,12 @@ public class MainActivity extends Activity implements HasHttpPostCallback {
 		
 		ImageView img = (ImageView) findViewById(R.id.logo_view);
 		
+		TextView user = (TextView)findViewById(R.id.username_field);
+		TextView pass = (TextView)findViewById(R.id.password_field);
+		TextView tag = (TextView)findViewById(R.id.tag_field);
+		user.setText("John");
+		pass.setText("greatpassword");
+		tag.setText("python");
 
 		Button init_chat = (Button) findViewById(R.id.chat_init_button);
 		final MainActivity m = this;
