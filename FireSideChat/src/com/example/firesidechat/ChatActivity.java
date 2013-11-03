@@ -146,8 +146,10 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     
 	}
 	
-
-	public void displayUpdate(String[][] data) { 
+	@SuppressLint("NewApi")
+	public void displayUpdate(Messages msgs) { 
+		
+		
 		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    View v = inflater.inflate(R.layout.chat_activity, null);
 
