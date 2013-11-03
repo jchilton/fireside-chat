@@ -67,7 +67,17 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 
             }
         });
+        
+        
     }
+    public void displayMessage(String msg_data, String username, String timestamp) { 
+    	//will post message
+    	//timesteamp
+    	//then call pull message with boolean overRideTimer=True
+    }
+
+    
+    
 
 	public void updateMessages() {
         HashMap<String, String> requestVals = new HashMap<String, String>();
