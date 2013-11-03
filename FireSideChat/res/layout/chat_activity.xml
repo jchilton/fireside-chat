@@ -50,13 +50,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <ListView
-            android:layout_width="86dp"
-            android:layout_height="194dp"
-            android:id="@+id/user_list_view"
-            android:layout_gravity="center_horizontal|top"
-            android:choiceMode="none" />
-
         <ScrollView
             android:id="@+id/chat_scroll_view"
             android:layout_width="fill_parent"
