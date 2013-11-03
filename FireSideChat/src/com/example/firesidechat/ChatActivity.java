@@ -41,7 +41,17 @@ public class ChatActivity extends Activity {
 
             }
         });
+        
+        
     }
+    public void displayMessage(String msg_data, String username, String timestamp) { 
+    	//will post message
+    	//timesteamp
+    	//then call pull message with boolean overRideTimer=True
+    }
+
+    
+    
 
 
 }
