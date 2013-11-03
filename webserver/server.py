@@ -6,6 +6,7 @@ import tornado.ioloop
 import tornado.web
 
 import handlers.join
+import handlers.search_topics
 
 
 db_config = {}
@@ -24,7 +25,8 @@ except ValueError:
     sys.exit(1)
 
 application = tornado.web.Application([
-    (r'/join', handlers.join.JoinHandler, dict(db_config=db_config))
+    (r'/join', handlers.join.JoinHandler, dict(db_config=db_config)),
+    (r'/search_topics', handlers.search_topics.SearchTopicsHandler, dict(db_config=db_config))
 ])
 
 if __name__ == '__main__':

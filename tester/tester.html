@@ -34,13 +34,23 @@
         request.oneonone = "N";
         $("#json").val(JSON.stringify(request));
       }
+      else if($("#presets").val() == "Search") {
+        $("#url").val("search_topics");
+        var request = new Object();
+        request.prefix = 'hot';
+        $("#json").val(JSON.stringify(request));
+      }
     });
   });
 
   </script>
 </head>
 <body>
-<div>Presets: <select id="presets"><option value=""></option><option value="Join" />Join</option></select></div>
+<div>Presets: <select id="presets">
+                <option value=""></option>
+                <option value="Join" />Join</option>
+                <option value="Search" />Search</option>
+              </select></div>
 
 <br /><br />
 <div>URL Relative to <b>http://10.20.11.49/</b>&nbsp;&nbsp;:<input type="text" id="url" value="join" /></div>

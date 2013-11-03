@@ -40,7 +40,7 @@ class JoinHandler(base.BaseHandler):
         add_user_status = models.topic.add_user(request['username'], topic_to_join, dbconn)
         if add_user_status == Status.UserAddedToTopic or add_user_status == Status.UserAlreadyInTopic:
             dbconn.commit()
-            self.success(add_user_status)
+            self.success(add_user_status, {'topic_id': topic_to_join})
             return
         else:
             dbconn.rollback()
