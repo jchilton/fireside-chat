@@ -32,7 +32,7 @@ public final class R {
         public static final int chat_init_button=0x7f080004;
         public static final int chat_scroll_view=0x7f080008;
         public static final int chat_tags=0x7f080007;
-        public static final int imageView=0x7f080000;
+        public static final int logo_view=0x7f080000;
         public static final int message_send_button=0x7f080009;
         public static final int message_text_field=0x7f08000a;
         public static final int password_field=0x7f080002;

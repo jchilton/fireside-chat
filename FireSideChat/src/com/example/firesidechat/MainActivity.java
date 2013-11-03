@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements HasHttpPostCallback {
@@ -41,6 +42,9 @@ public class MainActivity extends Activity implements HasHttpPostCallback {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		ImageView img = (ImageView) findViewById(R.id.logo_view);
+		
 
 		Button init_chat = (Button) findViewById(R.id.chat_init_button);
 		final MainActivity m = this;
