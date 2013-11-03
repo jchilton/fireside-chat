@@ -1,36 +1,34 @@
 package com.example.firesidechat;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
  * Created by timlarson on 11/2/13.
  */
 public class ChatActivity extends Activity {
+	String username;
+	String password;
+	String topicName;
+	Integer topicId;
+	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
         
         //get intent from previous activity
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String password = intent.getStringExtra("password");
-        String tags = intent.getStringExtra("topicID");
+        username = intent.getStringExtra("username");
+        password = intent.getStringExtra("password");
+        topicName = intent.getStringExtra("topicName");
+        topicId = intent.getIntExtra("topicId", 0);
 
         TextView tag = (TextView) findViewById(R.id.chat_tags);
-        tag.setText("Topic: " +tags);
+        tag.setText("Topic: " + topicName);
         
         
         final TextView msg_data = (TextView) findViewById(R.id.message_text_field);
