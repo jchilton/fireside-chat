@@ -26,20 +26,19 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	
-
+	private boolean isLoggedIn = false;
 	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		Server.login("Alice", "doge", "lolcats");
+		Server.login("john", "greatpassword", "lolcats", this);
 		
         Button init_chat = (Button) findViewById(R.id.chat_init_button);
         init_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, chat_activity.class);
                 startActivity(intent);
             }
@@ -50,5 +49,9 @@ public class MainActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void loginRequestCompleted(String result) {
+		Log.d("Result", result);
 	}
 }
