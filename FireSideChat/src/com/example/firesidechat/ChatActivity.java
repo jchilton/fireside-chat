@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 	Timer timer = new Timer();
 	final Long timer_delay = (long) 10000;
 	final ChatActivity ca = this;
+	String lastTimeStamp = null;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +74,12 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
         requestVals.put("username", username);
         requestVals.put("password", password);
         requestVals.put("topic_id", Integer.toString(topicId));
-        requestVals.put("timestame", new Timestamp(System.currentTimeMillis()).toString());
+        if (lastTimeStamp != null) { 
+	        Log.d("TimeStamp", lastTimeStamp);
+	        requestVals.put("timestamp", lastTimeStamp);
+        }
+        String time = new Timestamp(System.currentTimeMillis()).toString();
+        lastTimeStamp = time.substring(0, time.lastIndexOf('.'));
 		new SearchMessagesRequestTask(ca).execute(Server.MESSAGES_URL, new JSONObject(requestVals).toString());
 	}
 

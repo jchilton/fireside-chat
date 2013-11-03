@@ -7,6 +7,7 @@ import org.json.JSONObject;
 public class Server {
 	public static String JOIN_URL = "http://10.20.11.49/join";
 	public static String SEARCH_URL = "http://10.20.11.49/search_topics";
+	public static String MESSAGES_URL = "http://10.20.11.49/get_messages";
 	
 	public static HashMap<Integer, String> RESPONSE_CODES = new HashMap<Integer, String>();
 	static {
