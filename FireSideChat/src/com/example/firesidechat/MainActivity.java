@@ -184,8 +184,6 @@ public class MainActivity extends Activity implements HasHttpPostCallback {
 		}
 	}
 
-<<<<<<< HEAD
-=======
 	@Override
 	public void onPostReturn(String URL, String response) {
 		if (URL.equals(Server.JOIN_URL)) {
@@ -196,7 +194,6 @@ public class MainActivity extends Activity implements HasHttpPostCallback {
 		}
 	}
 
->>>>>>> branch 'master' of https://github.com/jchilton1/fireside-chat.git
 	public void locationHandler(String latitude, String longitude) {
 		// TODO Auto-generated method stub
 		
