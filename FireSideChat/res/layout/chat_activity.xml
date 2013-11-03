@@ -48,7 +48,8 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:focusableInTouchMode="true">
 
         <ScrollView
             android:id="@+id/chat_scroll_view"
@@ -88,7 +89,8 @@
             android:layout_alignBottom="@+id/message_send_button"
             android:layout_toLeftOf="@+id/message_send_button"
             android:layout_marginRight="12dp"
-            android:hint="Enter message here..."/>
+            android:hint="Enter message here..."
+            />
     </RelativeLayout>
 
 </LinearLayout>
