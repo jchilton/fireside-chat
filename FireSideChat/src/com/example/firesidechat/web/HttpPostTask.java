@@ -1,4 +1,4 @@
-package com.example.firesidechat;
+package com.example.firesidechat.web;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,13 +13,15 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.example.firesidechat.MainActivity;
+
 import android.os.AsyncTask;
 
-public class LoginRequestTask extends AsyncTask<String, Void, String> {
+public abstract class HttpPostTask extends AsyncTask<String, Void, String> {
 
-	private MainActivity callbackParent;
+	protected MainActivity callbackParent;
 	
-	public LoginRequestTask(MainActivity a) {
+	public HttpPostTask(MainActivity a) {
 		this.callbackParent = a;
 	}
 
@@ -57,10 +59,5 @@ public class LoginRequestTask extends AsyncTask<String, Void, String> {
 			e.printStackTrace();
 		}
 		return builder.toString();
-	} 
-	
-	@Override
-	public void onPostExecute(String result) {
-		callbackParent.loginRequestCompleted(result);
 	}
 }
