@@ -2,22 +2,26 @@ package com.example.firesidechat;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.firesidechat.model.Message;
+import com.example.firesidechat.model.MessageList;
 import com.example.firesidechat.web.HasHttpPostCallback;
 import com.example.firesidechat.web.SearchMessagesRequestTask;
 import com.example.firesidechat.web.Server;
@@ -30,15 +34,21 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
 	String password;
 	String topicName;
 	Integer topicId;
-	ArrayList<JSONObject> messages;
-	Timer timer = new Timer();
-	final Long timer_delay = (long) 10000;
-	final ChatActivity ca = this;
+	
+	MessageList messages;
+	
+	Timer messagesTimer = new Timer();
+	final Long TIMER_DELAY = (long) 20 * 1000;
 	String lastTimeStamp = null;
 	
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_activity);
+        
+        messages = new MessageList();
+        
+    	String time = new Timestamp(System.currentTimeMillis()).toString();
+        lastTimeStamp = time.substring(0, time.lastIndexOf('.'));
         
         //get intent from previous activity
         Intent intent = getIntent();
@@ -50,12 +60,12 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
         TextView tag = (TextView) findViewById(R.id.chat_tags);
         tag.setText("Topic: " + topicName);
         
-        timer.scheduleAtFixedRate(new TimerTask() {
+        messagesTimer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				updateMessages();
 			}
-		}, 0, timer_delay);
+		}, 0, TIMER_DELAY);
 
         final TextView msg_data = (TextView) findViewById(R.id.message_text_field);
         Button msg_btn = (Button) findViewById(R.id.message_send_button);
@@ -83,27 +93,49 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
         HashMap<String, String> requestVals = new HashMap<String, String>();
         requestVals.put("username", username);
         requestVals.put("password", password);
-        requestVals.put("topic_id", Integer.toString(topicId));
-        if (lastTimeStamp != null) { 
-	        Log.d("TimeStamp", lastTimeStamp);
-	        requestVals.put("timestamp", lastTimeStamp);
+        
+        Log.d("TimeStamp", "asking for msgs later than " + lastTimeStamp);
+        requestVals.put("timestamp", lastTimeStamp);
+    	
+    	JSONObject obj = new JSONObject(requestVals);
+        try {
+        	obj.put("topic_id", Integer.valueOf(topicId));
+        	new SearchMessagesRequestTask(this).execute(Server.MESSAGES_URL, obj.toString());
         }
-        String time = new Timestamp(System.currentTimeMillis()).toString();
+        catch (JSONException e) { }
+        
+    	String time = new Timestamp(System.currentTimeMillis()).toString();
         lastTimeStamp = time.substring(0, time.lastIndexOf('.'));
-		new SearchMessagesRequestTask(ca).execute(Server.MESSAGES_URL, new JSONObject(requestVals).toString());
+        
+        for(Message m : messages.getMessages()) {
+        	Log.d("Messages", m.toString()+" ");
+        }
 	}
 
-	@Override
-	public void onPostReturn(String URL, String response) {
+	public void addMessages(String response) {
 		Log.d("Response", response);
 		JSONObject json = null;
 		try {
-			json = new JSONObject(response);
-			messages = new ArrayList<JSONObject>();
-			json.getJSONArray("data");
-
+			JSONArray jsonArray = new JSONObject(response).getJSONArray("data");
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject jsonObj = jsonArray.getJSONObject(i);
+				
+				messages.add(new Message(jsonObj.getString("username"),
+										 jsonObj.getString("timestamp"),
+										 jsonObj.getString("message")));
+			}
 		} catch (JSONException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void onPostReturn(String URL, String response) {
+		if (URL.equals(Server.MESSAGES_URL)) {
+			addMessages(response);
+		}
+		else if (URL.equals("")) {
+			
 		}
 	}
 

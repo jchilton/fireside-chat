@@ -1,4 +1,4 @@
-package com.example.firesidechat.web;
+package com.example.firesidechat;
 
 import android.content.Context;
 import android.location.Criteria;
@@ -7,7 +7,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.firesidechat.MainActivity;
 
 public class Location implements LocationListener {
 	
