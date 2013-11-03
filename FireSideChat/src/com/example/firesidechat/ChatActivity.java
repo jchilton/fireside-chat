@@ -16,11 +16,14 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.firesidechat.web.HasHttpPostCallback;
@@ -77,7 +80,12 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
                 //http://stackoverflow.com/questions/6369062/how-do-i-add-elements-dynamically-to-a-view-created-with-xml
             	//on click send HTTPPostTask
             	submitMessage(msg_data.getText().toString());
+            	
+            	String[][] testd = new String[2][3];
+            	displayUpdate(testd);
+            	
             	msg_data.setText("");
+            	
 
             }
         });
@@ -134,9 +142,44 @@ public class ChatActivity extends Activity implements HasHttpPostCallback{
     	
     	new SubmitMessageRequestTask(ca).execute(sa);
     
-    	
 	}
 	
+	public void displayUpdate(String[][] data) { 
+		LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    View v = inflater.inflate(R.layout.chat_activity, null);
+
+	    // Find the ScrollView 
+	    ScrollView sv = (ScrollView) v.findViewById(R.id.chat_scroll_view);
+
+	    // Create a LinearLayout element
+	    LinearLayout ll = new LinearLayout(this);
+	    ll.setOrientation(LinearLayout.VERTICAL);
+	    ll.setPadding(15, 15, 15, 15);
+
+	    // Add text
+	    TextView name1 = new TextView(this);
+	    name1.setText("User");
+	    ll.addView(name1);
+	    
+	    TextView msg1 = new TextView(this);
+	    msg1.setText("msg1");
+	    ll.addView(msg1);
+	    
+	    TextView name2 = new TextView(this);
+	    name2.setText("User2");
+	    ll.addView(name2);
+	    
+	    TextView msg2 = new TextView(this);
+	    msg2.setText("msg2");
+	    ll.addView(msg2);
+	    
+
+	    // Add the LinearLayout element to the ScrollView
+	    sv.addView(ll);
+
+	    // Display the view
+	    setContentView(v);
+	}
 	
 
 }
