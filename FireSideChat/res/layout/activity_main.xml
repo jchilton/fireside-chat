@@ -3,7 +3,7 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bg"
+
     >
 
 
@@ -66,7 +66,8 @@
             android:layout_below="@+id/tag_field"
             android:layout_alignLeft="@+id/tag_field"
             android:layout_alignRight="@+id/tag_field"
-            android:layout_marginTop="15dp"/>
+            android:layout_marginTop="15dp"
+            android:textColor="#ffffff" />
     </RelativeLayout>
 
     <TextView
